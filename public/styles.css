@@ -82,3 +82,13 @@ body {
 .record-button.active {
   --saturation: 100%;
 }
+
+.play-button,
+.save-button {
+  display: none;
+}
+
+.play-button.show,
+.save-button.show {
+  display: block;
+}
