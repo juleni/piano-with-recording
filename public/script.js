@@ -1,13 +1,25 @@
 const WHITE_KEYS = ["z", "x", "c", "v", "b", "n", "m"];
 const BLACK_KEYS = ["s", "d", "g", "h", "j"];
 
+const recordButton = document.querySelector(".record-button");
+
 const keys = document.querySelectorAll(".key");
 const whiteKeys = document.querySelectorAll(".key.white");
 const blackKeys = document.querySelectorAll(".key.black");
 
+const keyMap = [...keys].reduce((map, key) => {
+  map[key.dataset.note] = key;
+  return map;
+}, {});
+
+let recordingStartTime;
+let songNotes;
+
 keys.forEach((key) => {
   key.addEventListener("click", () => playNote(key));
 });
+
+recordButton.addEventListener("click", toggleRecording);
 
 document.addEventListener("keydown", (e) => {
   if (e.repeat) return;
@@ -19,7 +31,48 @@ document.addEventListener("keydown", (e) => {
   if (blackKeyIndex > -1) playNote(blackKeys[blackKeyIndex]);
 });
 
+function toggleRecording() {
+  recordButton.classList.toggle("active");
+  if (isRecording()) {
+    startRecording();
+  } else {
+    stopRecording();
+  }
+}
+
+function isRecording() {
+  return recordButton != null && recordButton.classList.contains("active");
+}
+
+function startRecording() {
+  recordingStartTime = Date.now();
+  songNotes = [];
+}
+
+function stopRecording() {
+  playSong();
+}
+
+function playSong() {
+  if (songNotes.length === 0) return;
+  console.log(songNotes);
+
+  songNotes.forEach((note) => {
+    setTimeout(() => {
+      playNote(keyMap[note.key]);
+    }, note.startTime);
+  });
+}
+
+function recordNotes(note) {
+  songNotes.push({
+    key: note,
+    startTime: Date.now() - recordingStartTime,
+  });
+}
+
 function playNote(key) {
+  if (isRecording()) recordNotes(key.dataset.note);
   const noteAudio = document.getElementById(key.dataset.note);
   noteAudio.currentTime = 0;
   noteAudio.play();
