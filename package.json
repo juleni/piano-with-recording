@@ -1,0 +1,18 @@
+{
+  "name": "piano-with-recording",
+  "description": "Music recorder for piano project",
+  "version": "1.0.0",
+  "requires": true,
+  "main": "script.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
