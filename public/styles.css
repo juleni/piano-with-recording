@@ -45,7 +45,8 @@ body {
   background-color: #333;
 }
 
-.buttons {
+.buttons,
+.song-link {
   margin-bottom: 2rem;
   display: flex;
 }
@@ -84,11 +85,13 @@ body {
 }
 
 .play-button,
-.save-button {
+.save-button,
+.song-link {
   display: none;
 }
 
 .play-button.show,
-.save-button.show {
+.save-button.show,
+.song-link.show {
   display: block;
 }
