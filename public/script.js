@@ -79,6 +79,13 @@ function recordNotes(note) {
   });
 }
 
+function saveSong() {
+  axios.post("/songs", { songNotes: songNotes }).then((res) => {
+    res.data._id;
+    console.log(res.data);
+  });
+}
+
 function playNote(key) {
   if (isRecording()) recordNotes(key.dataset.note);
   const noteAudio = document.getElementById(key.dataset.note);
@@ -87,5 +94,3 @@ function playNote(key) {
   key.classList.add("active");
   noteAudio.addEventListener("ended", () => key.classList.remove("active"));
 }
-
-function saveSong() {}
